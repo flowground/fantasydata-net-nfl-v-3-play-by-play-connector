@@ -1,0 +1,92 @@
+{
+    "title": "NFL v3 Play-by-Play",
+    "description": "NFL play-by-play API.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/fantasydata.net/nfl-v3-play-by-play/1.0/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "http://api.fantasydata.net/v3/nfl/pbp",
+                    "https://api.fantasydata.net/v3/nfl/pbp",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "apiKeyHeader": {
+                "label": "Ocp-Apim-Subscription-Key (apiKeyHeader)",
+                "viewClass": "TextFieldView"
+            },
+            "apiKeyQuery": {
+                "label": "subscription-key (apiKeyQuery)",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "PlayByPlay": {
+            "main": "./lib/actions/PlayByPlay.js",
+            "title": "Play By Play",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/PlayByPlay.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "PlayByPlayDelta": {
+            "main": "./lib/actions/PlayByPlayDelta.js",
+            "title": "Play By Play Delta",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/PlayByPlayDelta.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "PlayByPlaySimulation": {
+            "main": "./lib/actions/PlayByPlaySimulation.js",
+            "title": "Play By Play Simulation",
+            "description": "Gets simulated live play-by-play of NFL games, covering the Conference Championship games on January 21, 2018.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/PlayByPlaySimulation.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
